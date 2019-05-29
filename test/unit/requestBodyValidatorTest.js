@@ -95,16 +95,16 @@ describe('requestBodyValidator', () => {
     };
 
     before(() => {
-      const body = JSON.stringify({
+      const body = {
         message: 12,
-      });
+      };
       requestBodyValidator.validate(model, body);
     });
 
     context('json not conforming to the schema', () => {
-      const body = JSON.stringify({
+      const body = {
         message: 'foo',
-      });
+      };
       it('should throw error', () => {
         expect(() => requestBodyValidator.validate(model, body)).to.throw(/Request body validation failed.*/);
       });

@@ -946,7 +946,9 @@ class Offline {
             // If request body validation is enabled, validate body against the request model.
             if (requestBodyValidationModel && !this.options.disableModelValidation) {
               try {
-                requestBodyValidator.validate(requestBodyValidationModel, event.body);
+                // With lambda-proxy integration, event.body is stringified and has to be parsed
+                let body = integration === 'lambda' ? event.body : JSON.parse(event.body); 
+                requestBodyValidator.validate(requestBodyValidationModel, body);
               }
               catch (error) {
                 // When request body validation fails, APIG will return back 400 as detailed in:

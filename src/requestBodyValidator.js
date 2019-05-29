@@ -15,7 +15,7 @@ module.exports = {
   },
 
   validate(model, body) {
-    const result = validator(JSON.parse(body), model.schema);
+    const result = validator(body, model.schema);
     if (result.errors.length > 0) {
       throw new Error(`Request body validation failed.\n${result.errors.map(e => e.message).join(',')}`);
     }
